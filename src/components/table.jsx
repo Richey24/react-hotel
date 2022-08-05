@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../styles/table.css"
+import "../styles/table.css";
 
 class Table extends Component {
   state = {
@@ -10,6 +10,14 @@ class Table extends Component {
   render() {
     return (
       <div className="table_wrapper">
+        <div>
+          <p className="title">
+            { this.props.title }
+          </p>
+          <p className="subtitle">
+            { this.props.subtitle }
+          </p>
+        </div>
         <table>
           <thead>
             <tr>{this.loadHeaders()}</tr>
@@ -23,12 +31,8 @@ class Table extends Component {
   loadHeaders() {
     const { headers } = this.state;
 
-    if (!Array.isArray(headers)) {
-      return;
-    }
-    if (headers.length === 0) {
-      return;
-    }
+    if (!Array.isArray(headers)) {return;}
+    if (headers.length === 0) { return;}
 
     return headers.map((header, index) => {
       return <th key={index}>{header.text}</th>;
@@ -38,19 +42,14 @@ class Table extends Component {
   loadRows() {
     const { headers, items } = this.state;
 
-    if (!Array.isArray(headers) || !Array.isArray(items)) {
-      return;
-    }
-
-    if (headers.length === 0 || items.length === 0) {
-      return;
-    }
+    if (!Array.isArray(headers) || !Array.isArray(items)) { return; }
+    if (headers.length === 0 || items.length === 0) { return; }
 
     return items.map((item, itemIndex) => {
       return (
         <tr key={itemIndex}>
           {headers.map((header, headerIndex) => (
-            <td key={headerIndex + itemIndex}>{ item[header.value] }</td>
+            <td key={headerIndex + itemIndex}>{item[header.value]}</td>
           ))}
         </tr>
       );
