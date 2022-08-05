@@ -1,6 +1,8 @@
 import "./styles/app.css";
-import SideNavigation from "./components/sideNavigation";
-import RoomPage from "./pages/Rooms";
+import "./styles/form.css"
+import SideNavigation from "./components/SideNavigation";
+import appRoutes from "./routes/appRoutes";
+import { Routes, Route } from "react-router-dom"
 
 function App() {
   return (
@@ -18,7 +20,9 @@ function App() {
         </div>
 
         <div className="app_content">
-          <RoomPage/>
+          <Routes>
+            { appRoutes.map( ( route, index ) => <Route path={route.path} element={route.component} key={index}/>) }
+          </Routes>
         </div>
       </div>      
     </div>

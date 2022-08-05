@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom"
 import "../styles/sideNavigation.css"
 
 class SideNavigation extends Component {
@@ -6,28 +7,28 @@ class SideNavigation extends Component {
     links: [
       {
         name: "Dashboard",
-        link: "/dashboard",
-        icon: "fa fa-home",
+        path: "/dashboard",
+        icon: "fa fa-sign-language",
       },
       {
         name: "Rooms",
-        link: "/room",
-        icon: "fa fa-users"
+        path: "/rooms",
+        icon: "fa fa-users",
       },
       {
         name: "Customers",
-        link: "/customer",
-        icon: "fa fa-credit-card"
+        path: "/customers",
+        icon: "fa fa-credit-card",
       },
       {
         name: "Bookings",
-        link: "/bookings",
-        icon: "fa fa-server"
+        path: "/bookings",
+        icon: "fa fa-server",
       },
       {
         name: "Services",
-        link: "/services",
-        icon: "fa fa-chart-line"
+        path: "/services",
+        icon: "fa fa-chart-line",
       }
     ]
    } 
@@ -36,6 +37,15 @@ class SideNavigation extends Component {
     return (
       <div className="sidenav">
         { this.getLinks() }
+        <div>
+          <Link className='links' to="/logout">
+            <span className="icon">
+              <i className="fa fa-sign-in"></i> 
+            </span>
+            
+            <span>Logout</span>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -44,12 +54,13 @@ class SideNavigation extends Component {
     const { links } = this.state;
     return links.map( link => {
       return ( 
-        <div className="links" key={link.name}> 
+        <Link className="links" key={link.name} to={link.path}> 
           <span className="icon">
             <i className={link.icon}></i> 
           </span>
+          
           <span> { link.name } </span>
-        </div>
+        </Link>
       );
     })
   }
