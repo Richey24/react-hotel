@@ -1,31 +1,44 @@
 import "./styles/app.css";
-import "./styles/form.css"
-import SideNavigation from "./components/SideNavigation";
-import appRoutes from "./routes/appRoutes";
-import { Routes, Route } from "react-router-dom"
+import "./styles/form.css";
+import { Routes, Route } from "react-router-dom";
+import layoutRoutes from "./routes/layout.routes";
+
+import RoomPage from "./pages/Rooms"
+import ServicesPage from "./pages/Services"
+import CustomersPage from "./pages/Customers"
+import DashboardPage from "./pages/Dashboard"
+import BookingsPage from "./pages/Bookings"
+import Error404Page from "./pages/404";
+import LoginPage from "./pages/Login";
+import AppLayout from "./layouts/AppLayout"
 
 function App() {
   return (
-    <div className="app_layout">
-      <div className="app_sidebar">
-        <SideNavigation/>
-      </div>
+    <Routes>
+      <Route path="/login" element={<LoginPage/>} />
+      <Route path="app" element={<AppLayout/>}>
+        <Route path="dashboard" element={<DashboardPage/>}/>
+        <Route path="rooms" element={<RoomPage/>}/>
+        <Route path="services" element={<ServicesPage/>}/>
+        <Route path="customers" element={<CustomersPage/>}/>
+        <Route path="bookings" element={<BookingsPage/>}/>
+      </Route>
+      <Route path="*" element={<Error404Page/>}/>
+    </Routes>
 
-      <div className="app_content_wrapper">
-        
-        <div className="app_header">
-          <h2>
-            Hotel Management System
-          </h2>
-        </div>
-
-        <div className="app_content">
-          <Routes>
-            { appRoutes.map( ( route, index ) => <Route path={route.path} element={route.component} key={index}/>) }
-          </Routes>
-        </div>
-      </div>      
-    </div>
+    // <Routes>
+    //   {layoutRoutes.map((route, index) =>
+    //     route.children ? (
+    //       <Route path={route.path} element={route.component} key={index}>
+    //         {route.children.map((childRoute, index) => (
+    //           <Route path={childRoute.path} element={childRoute.component} key={index} />
+    //         ))}
+    //       </Route>
+    //     ) : (
+    //       <Route path={route.path} element={route.component} key={index} />
+    //     )
+    //   )}
+    // </Routes>
   );
 }
 

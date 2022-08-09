@@ -3,31 +3,26 @@ import ServicesPage from "../pages/Services"
 import CustomersPage from "../pages/Customers"
 import DashboardPage from "../pages/Dashboard"
 import BookingsPage from "../pages/Bookings"
-import LoginPage from "../pages/Login"
 
 const routes = [
   {
-    path: "/",
-    component: <LoginPage/>
-  },
-  {
-    path: "/dashboard",
+    path: "dashboard",
     component: <DashboardPage/>
   },
   {
-    path: "/customers",
+    path: "customers",
     component: <CustomersPage/>
   },
   {
-    path: "/bookings",
+    path: "bookings",
     component: <BookingsPage/>
   },
   {
-    path: "/rooms",
+    path: "rooms",
     component: <RoomPage/>
   },
   {
-    path: "/services",
+    path: "services",
     component: <ServicesPage/>
   }
 ]
