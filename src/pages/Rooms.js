@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import Table from "../components/Table";
-import roomSchema from "../validation_schemas/roomSchema";
+import roomSchema from "../validation_schemas/room.schema";
 
 export default function RoomPage() {
   const headers = [
