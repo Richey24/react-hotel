@@ -1,0 +1,22 @@
+
+.login_content {
+  align-items: center;
+  min-height: 100vh;
+}
+
+.login_content .title {
+  text-align: center;
+  width: 100%;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #CFE4E5;
+}
+
+.login_content form {
+  padding: 32px;
+}
+
+.login_content form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
