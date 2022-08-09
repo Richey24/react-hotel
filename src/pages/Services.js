@@ -1,6 +1,6 @@
 import Table from "../components/Table"
 import { useFormik } from "formik"
-import serviceSchema from "../validation_schemas/serviceSchema"
+import serviceSchema from "../validation_schemas/service.schema"
 
 export default function ServicesPage() {
   const headers= [

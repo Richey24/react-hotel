@@ -1,6 +1,6 @@
 import Table from "../components/Table";
 import { useFormik } from "formik";
-import bookingSchema from "../validation_schemas/bookingSchema";
+import bookingSchema from "../validation_schemas/booking.schema";
 
 export default function BookingsPage() {
   const headers = [
@@ -28,7 +28,6 @@ export default function BookingsPage() {
     </div>
   )
 }
-
 
 
 function BookingsForm(){

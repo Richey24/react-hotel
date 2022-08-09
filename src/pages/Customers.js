@@ -1,6 +1,6 @@
 import Table from "../components/Table";
 import { useFormik } from "formik";
-import customerSchema from "../validation_schemas/customerSchema";
+import customerSchema from "../validation_schemas/customers.schema";
 
 export default function CustomerPage() {
   const headers = [
@@ -35,7 +35,7 @@ function CustomerForm() {
       email: "",
       age: "",
       phoneNumber: "",
-      gender: "",
+      gender: "male",
       address: "",
       dob: ""
     },
@@ -125,7 +125,7 @@ function CustomerForm() {
           onChange={handleChange}
           className={ errors.gender && touched.gender ? "input-error" : ""}
         >
-          <option value="male" selected>Male</option>
+          <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
         { errors.gender && touched.gender ? <p className="error"> { errors.gender } </p> : ""}
