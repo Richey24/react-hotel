@@ -7,28 +7,28 @@ class SideNavigation extends Component {
     links: [
       {
         name: "Dashboard",
-        path: "/dashboard",
-        icon: "fa fa-sign-language",
+        path: "/app/dashboard",
+        icon: "fa fa-chart-line",
       },
       {
         name: "Rooms",
-        path: "/rooms",
-        icon: "fa fa-users",
+        path: "/app/rooms",
+        icon: "fa fa-bed",
       },
       {
         name: "Customers",
-        path: "/customers",
-        icon: "fa fa-credit-card",
+        path: "/app/customers",
+        icon: "fa fa-users",
       },
       {
         name: "Bookings",
-        path: "/bookings",
-        icon: "fa fa-server",
+        path: "/app/bookings",
+        icon: "fa fa-credit-card",
       },
       {
         name: "Services",
-        path: "/services",
-        icon: "fa fa-chart-line",
+        path: "/app/services",
+        icon: "fa fa-bell",
       }
     ]
    } 
@@ -37,15 +37,14 @@ class SideNavigation extends Component {
     return (
       <div className="sidenav">
         { this.getLinks() }
-        <div>
-          <Link className='links' to="/logout">
-            <span className="icon">
-              <i className="fa fa-sign-in"></i> 
-            </span>
-            
-            <span>Logout</span>
-          </Link>
-        </div>
+        
+        <Link className='links' to="/login">
+          <span className="icon">
+            <i className="fa fa-share-square"></i> 
+          </span>
+          
+          <span>Logout</span>
+        </Link>
       </div>
     );
   }
