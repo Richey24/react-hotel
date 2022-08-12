@@ -1,100 +1,149 @@
-import Table from "../components/Table"
-import { useFormik } from "formik"
-import serviceSchema from "../validation_schemas/service.schema"
+import Table from "../components/Table";
+import { useFormik } from "formik";
+import serviceSchema from "../validation_schemas/service.schema";
+import { useSelector, useDispatch } from "react-redux";
+import { serviceActions } from "../store/services.module";
+import {
+  addServices,
+  deleteService,
+  fetchServices,
+} from "../services/services.service";
+import { useEffect } from "react";
 
 export default function ServicesPage() {
-  const headers= [
-    { text: "SN", value: "serialNumber" },
-    { text: "Room #", value: "room" },
-    { text: "Type", value: "type" },
-    { text: "Status", value: "status" },
-    { text: "Date Assigned", value: "dateAssigned" },
-    { text: "Action", value: "action" },
-  ]
+  const dispatch = useDispatch();
+  useEffect(() => {
+    fetchServices().then((res) => {
+      dispatch(serviceActions.setServices(res.data.requests));
+    });
+  }, [dispatch]);
 
-  const items= [
+  const handleClick = (props) =>
+    deleteService(props.id).then(() =>
+      fetchServices().then((res) => {
+        dispatch(serviceActions.setServices(res.data.requests));
+      })
+    );
+
+  const headers = [
+    { text: "SN", value: "serialNumber" },
+    { text: "Room #", value: "roomNum" },
+    { text: "Type", value: "description" },
+    { text: "Status", value: "status" },
+    { text: "Date Assigned", value: "date" },
     {
-      serialNumber: "1",
-      room: "2",
-      type: "Extra Towels",
-      status: "Complete",
-      dateAssigned: "7/26/2022"
+      text: "Action",
+      value: (props) => (
+        <span className="icon btn_delete" onClick={() => handleClick(props)}>
+          <i className="fa fa-trash"></i>
+        </span>
+      ),
+      isJSX: true,
     },
-    {
-      serialNumber: "1",
-      room: "2",
-      type: "Extra Towels",
-      status: "Complete",
-      dateAssigned: "7/26/2022"
-    }
-  ]
+  ];
 
   return (
     <div className="page_content">
-      <ServiceForm/>
-      <Table items={items} headers={headers} title="Services" subtitle="This table list all the services your staff proforms in your hotel"/>
+      <ServiceForm />
+      <Table
+        items={useSelector((state) => state.serviceModule)}
+        headers={headers}
+        title="Services"
+        subtitle="This table list all the services your staff proforms in your hotel"
+      />
     </div>
-  )
+  );
 }
 
+function ServiceForm() {
+  const dispatch = useDispatch();
+  const rooms = useSelector((state) => state.roomModule);
 
-function ServiceForm(){
   const { values, errors, touched, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      room: "",
-      type: "",
-      assignDate: "",
+      roomNum: "",
+      description: "",
+      status: "Pending",
+      date: "",
     },
-
     validationSchema: serviceSchema,
+    onSubmit: (values) => {
+      console.log(values);
+      addServices(values).then(() =>
+        fetchServices().then((res) => {
+          dispatch(serviceActions.setServices(res.data.requests));
+        })
+      );
+    },
+  });
 
-    onSubmit: () => { console.log("submitted"); }
-  })
-
-  return(
+  return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="room">Room Number</label>
-        <br/>
+        <label htmlFor="roomNum">Room Number</label>
+        <br />
         <select
-          name="room"
-          value={values.room}
+          name="roomNum"
+          value={values.roomNum}
           onChange={handleChange}
-          className={ errors.room && touched.room ? "input-error" : ""}
+          className={errors.roomNum && touched.roomNum ? "input-error" : ""}
         >
+          {rooms.map((room) => (
+            <option value={room.roomNum} key={room.roomNum}>
+              {room.roomNum}
+            </option>
+          ))}
         </select>
-        { errors.room && touched.room ? <p className="error"> { errors.room } </p> : ""}
+        {errors.roomNum && touched.roomNum ? (
+          <p className="error"> {errors.roomNum} </p>
+        ) : (
+          ""
+        )}
       </div>
 
       <div>
-        <label htmlFor="type">Type</label>
-        <br/>
+        <label htmlFor="description">Type</label>
+        <br />
         <select
-          name="type"
-          value={values.type}
+          name="description"
+          value={values.description}
           onChange={handleChange}
-          className={ errors.type && touched.type ? "input-error" : ""}
+          className={
+            errors.description && touched.description ? "input-error" : ""
+          }
         >
+          <option value="Extra Towels">Extra Towels </option>
+          <option value="Wifi Passcode">Wifi Passcode </option>
+          <option value="Dinning">Dinning</option>
+          <option value="Room Cleaning">Room Cleaning</option>
         </select>
-        { errors.type && touched.type ? <p className="error"> { errors.type } </p> : ""}
+        {errors.description && touched.description ? (
+          <p className="error"> {errors.description} </p>
+        ) : (
+          ""
+        )}
       </div>
 
       <div>
-        <label htmlFor="assignDate">Assign</label>
-        <br/>
-        <select
-          name="assignDate"
-          value={values.assignDate}
+        <label htmlFor="date">Assign</label>
+        <br />
+        <input
+          name="date"
+          value={values.date}
+          type="date"
           onChange={handleChange}
-          className={ errors.assignDate && touched.assignDate ? "input-error" : ""}
-        >
-        </select>
-        { errors.assignDate && touched.assignDate ? <p className="error"> { errors.assignDate } </p> : ""}
+          className={errors.date && touched.date ? "input-error" : ""}
+        ></input>
+        {errors.date && touched.date ? (
+          <p className="error"> {errors.date} </p>
+        ) : (
+          ""
+        )}
       </div>
 
       <div>
-        <button>Add Service</button>
+        <button type="submit">Add Service</button>
       </div>
     </form>
-  )
+  );
 }
