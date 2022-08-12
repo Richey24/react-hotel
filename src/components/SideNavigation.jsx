@@ -36,9 +36,12 @@ class SideNavigation extends Component {
   render() { 
     return (
       <div className="sidenav">
+        <div className='sidenav__header'>
+          NAVIGATION
+        </div>
         { this.getLinks() }
         
-        <Link className='links' to="/login">
+        <Link className='sidenav__links' to="/login" onClick={() => { localStorage.clear() }}>
           <span className="icon">
             <i className="fa fa-share-square"></i> 
           </span>
@@ -53,7 +56,7 @@ class SideNavigation extends Component {
     const { links } = this.state;
     return links.map( link => {
       return ( 
-        <Link className="links" key={link.name} to={link.path}> 
+        <Link className="sidenav__links" key={link.name} to={link.path}> 
           <span className="icon">
             <i className={link.icon}></i> 
           </span>

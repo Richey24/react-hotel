@@ -18,7 +18,8 @@
 }
 
 .card_content .card_value {
-  font-size: 1.563rem;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
 }
 
 .card_icon {
