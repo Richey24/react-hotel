@@ -3,7 +3,7 @@ import * as yup from "yup";
 const customerSchema = yup.object().shape({
   name: yup
     .string()
-    .max(2, "Name must have atleast 3 letters")
+    .min(2, "Name must have atleast 3 letters")
     .required("Required"),
   email: yup
     .string()
@@ -14,7 +14,7 @@ const customerSchema = yup.object().shape({
     .positive("Age must be greater than zero (0)")
     .min(1, "Age must be greater than zero (0)")
     .required("Required"),
-  phoneNumber: yup
+  phone: yup
     .number()
     .positive("Phone number must be positive")
     .min(7, "Phone number must have 7 or more characters")
@@ -24,6 +24,8 @@ const customerSchema = yup.object().shape({
   address: yup
   .string()
   .required("Required"),
+  password: yup.string().min(8, "Password requires 8 characters").required("Required"),
+  role: yup.string().required("Required")
 });
 
 export default customerSchema;
