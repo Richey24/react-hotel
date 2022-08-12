@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import SideNavigation from "../components/SideNavigation";
+import Topbar from "../components/Topbar";
 
 function AppLayout() {
   return (
@@ -9,8 +10,8 @@ function AppLayout() {
       </div>
 
       <div className="app_content_wrapper">
-        <div className="app_header">
-          <h2>Hotel Management System</h2>
+        <div>
+          <Topbar/>
         </div>
 
         <div className="app_content">
