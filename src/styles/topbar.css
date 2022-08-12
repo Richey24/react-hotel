@@ -1,0 +1,13 @@
+.app_header {
+  color: #37595C;
+  text-align: center;
+  line-height: 70px;
+  display: flex;
+  padding-right: 32px;
+  padding-left: 32px;
+  justify-content: flex-end;
+  background-color: white;
+  border-bottom: 1px solid #CFE4E5;
+  font-size: 1.25rem;
+}
+
