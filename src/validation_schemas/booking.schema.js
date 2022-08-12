@@ -1,5 +1,15 @@
 import * as yup from "yup";
 
+/**
+ * This schema is used to validate the form on the
+ * bookings page each function describes what the 
+ * form will validate for.
+ * 
+ * for example: 
+ * The form validates the room value for the following: 
+ * The room must be a number, It must be positive and It is required  
+ * 
+ */ 
 const bookingSchema = yup.object().shape({
   roomNum: yup
     .number()
