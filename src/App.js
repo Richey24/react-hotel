@@ -1,7 +1,8 @@
 import "./styles/app.css";
 import "./styles/form.css";
-import { Routes, Route } from "react-router-dom";
-import layoutRoutes from "./routes/layout.routes";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+// import layoutRoutes from "./routes/layout.routes";
 
 import RoomPage from "./pages/Rooms"
 import ServicesPage from "./pages/Services"
@@ -13,10 +14,15 @@ import LoginPage from "./pages/Login";
 import AppLayout from "./layouts/AppLayout"
 
 function App() {
+  
+  const { isLoggedIn, loggedInUser } = useSelector((state) => state.authModule);
+  console.log(isLoggedIn);
+  console.log(loggedInUser);
   return (
     <Routes>
+      <Route path="/" element={<Navigate to={ isLoggedIn ? "/app/dashboard" : "/login" }/>}/>
       <Route path="/login" element={<LoginPage/>} />
-      <Route path="app" element={<AppLayout/>}>
+      <Route path="app" element={ isLoggedIn ? <AppLayout/> : <Navigate to="/login"/> }>
         <Route path="dashboard" element={<DashboardPage/>}/>
         <Route path="rooms" element={<RoomPage/>}/>
         <Route path="services" element={<ServicesPage/>}/>
