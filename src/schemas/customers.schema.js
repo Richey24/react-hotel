@@ -39,6 +39,10 @@ const customerSchema = yup.object().shape({
   address: yup
   .string() //checks if the address is a string
   .required("Required"), //checks if the user entered an address
+
+  password: yup
+  .string()
+  .required("Required")
 });
 
 export default customerSchema;

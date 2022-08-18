@@ -1,10 +1,8 @@
-import "./styles/app.css";
-import "./styles/form.css";
+// import layoutRoutes from "./routes/layout.routes";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import layoutRoutes from "./routes/layout.routes";
 
-import RoomPage from "./pages/Rooms"
+import RoomPage from "./pages/Rooms" 
 import ServicesPage from "./pages/Services"
 import CustomersPage from "./pages/Customers"
 import DashboardPage from "./pages/Dashboard"
@@ -16,11 +14,15 @@ import AppLayout from "./layouts/AppLayout"
 function App() {
   
   const { isLoggedIn, loggedInUser } = useSelector((state) => state.authModule);
-  console.log(isLoggedIn);
-  console.log(loggedInUser);
   return (
+    /**
+     * React Router requires every route to be wrapped inside a Routes tag to make routing work
+     * Each Route tag contains the url and the component that should be displayed on that route
+     * The "path" attribute describe the url of the page and the "element" attribute holds the 
+     * component that will get displayed on that route
+     **/
     <Routes>
-      <Route path="/" element={<Navigate to={ isLoggedIn ? "/app/dashboard" : "/login" }/>}/>
+      <Route path="/" element={<Navigate to={ isLoggedIn ? "/app/dashboard" : "/login" }/>}/> 
       <Route path="/login" element={<LoginPage/>} />
       <Route path="app" element={ isLoggedIn ? <AppLayout/> : <Navigate to="/login"/> }>
         <Route path="dashboard" element={<DashboardPage/>}/>
